@@ -1,9 +1,22 @@
-import React from "react";
-import { BsInfoCircle } from "react-icons/bs"; // Import BsInfoCircle
-import { AiOutlineEdit } from "react-icons/ai"; // Assuming AiOutlineEdit is imported similarly
-import { MdOutlineDelete } from "react-icons/md"; // Assuming MdOutlineDelete is imported similarly
+import { BsInfoCircle } from "react-icons/bs"; 
+import { AiOutlineEdit } from "react-icons/ai";
+import { MdOutlineDelete } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+
 
 const BooksCard = ({ books }) => {
+  const navigate = useNavigate();
+  const handleView = (id) => {
+    navigate(`/books/show/${id}`);
+  };
+  
+  const handleEdit = (id) => {
+    navigate(`/books/edit/${id}`);
+  };
+  
+  const handleDelete = (id) => {
+    navigate(`/books/delete/${id}`);
+  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {books?.map((book) => (
@@ -14,10 +27,13 @@ const BooksCard = ({ books }) => {
           <div className="flex justify-center mt-4">
             <BsInfoCircle
               className="text-2xl text-green-800 mr-4"
-              onClick={() => alert("clciked")}
+              onClick={() => handleView(book._id)}
             />
-            <AiOutlineEdit className="text-2xl text-yellow-600 mr-4" />
-            <MdOutlineDelete className="text-2xl text-red-600" />
+            <AiOutlineEdit className="text-2xl text-yellow-600 mr-4"
+            onCLick={()=> handleEdit(book._id)}
+            />
+            <MdOutlineDelete className="text-2xl text-red-600"
+            onClick={()=> handleDelete(book._id)} />
           </div>
         </div>
       ))}
